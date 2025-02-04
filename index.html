@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sephina</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f2f5;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #1a73e8;
+            margin-bottom: 30px;
+        }
+
+        #chat-container {
+            max-width: 800px;
+            margin: 0 auto;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .messages-container {
+            height: 500px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #fafafa;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            max-width: 80%;
+            word-wrap: break-word;
+            line-height: 1.4;
+        }
+
+        .user {
+            background-color: #e3f2fd;
+            margin-left: auto;
+            text-align: right;
+            color: #1a73e8;
+        }
+
+        .bot {
+            background-color: #f5f5f5;
+            margin-right: auto;
+            color: #333;
+        }
+
+        .error {
+            background-color: #ffebee;
+            color: #c62828;
+            margin-right: auto;
+        }
+
+        .input-container {
+            display: flex;
+            gap: 12px;
+            padding: 10px;
+            border-top: 1px solid #eee;
+        }
+
+        #user-input {
+            flex-grow: 1;
+            padding: 12px 16px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: border-color 0.3s;
+        }
+
+        #user-input:focus {
+            outline: none;
+            border-color: #1a73e8;
+        }
+
+        button {
+            padding: 12px 24px;
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #1557b0;
+        }
+
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 10px 0;
+            color: #666;
+            font-style: italic;
+        }
+
+        .messages-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .messages-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .messages-container::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 4px;
+        }
+
+        .messages-container::-webkit-scrollbar-thumb:hover {
+            background: #999;
+        }
+    </style>
+</head>
+<body>
+    <h1>Medical AI Chatbot</h1>
+    <div id="chat-container">
+        <div class="messages-container" id="messages"></div>
+        <div class="loading" id="loading">Bot is thinking...</div>
+        <div class="input-container">
+            <input type="text" id="user-input" placeholder="Type your message..." autocomplete="off">
+            <button id="send-button" onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        const messagesContainer = document.getElementById("messages");
+        const userInput = document.getElementById("user-input");
+        const loadingIndicator = document.getElementById("loading");
+        const sendButton = document.getElementById("send-button");
+        let chatHistory = [];
+        let isProcessing = false;
+
+        function displayMessage(message, type) {
+            const messageDiv = document.createElement("div");
+            messageDiv.classList.add("message", type);
+            messageDiv.textContent = message;
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        async function sendMessage() {
+            if (isProcessing) return;
+
+            const message = userInput.value.trim();
+            if (message === "") return;
+
+            isProcessing = true;
+            sendButton.disabled = true;
+            userInput.value = "";
+            displayMessage(message, "user");
+            loadingIndicator.style.display = "block";
+
+            try {
+                const response = await fetch("http://localhost:5000/api/chat", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        message,
+                        chat_history: chatHistory
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    if (data.message) {
+                        displayMessage(data.message, "bot");
+                        chatHistory = data.chat_history;
+                    } else {
+                        displayMessage("Received empty response from server", "error");
+                    }
+                } else {
+                    displayMessage(data.error || "Server error occurred", "error");
+                }
+            } catch (error) {
+                
+                console.error("Error:", error);
+                displayMessage("Could not connect to the server. Please try again later.", "error");
+            } finally {
+                loadingIndicator.style.display = "none";
+                isProcessing = false;
+                sendButton.disabled = false;
+                userInput.focus();
+            }
+        }
+
+        userInput.addEventListener("keypress", function(event) {
+            if (event.key === "Enter" && !isProcessing) {
+                sendMessage();
+            }
+        });
+
+        // Initial greeting
+        displayMessage("Hello! I'm Sephina, how may I help you?", "bot");
+    </script>
+</body>
+</html>
