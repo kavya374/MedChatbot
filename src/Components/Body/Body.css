@@ -33,8 +33,8 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);  /* Dark overlay */
-  z-index: 1;  /* Ensures overlay is above the video but behind the text */
+  background-color: rgba(0, 0, 0, 0.5);  
+  z-index: 1;  
 }
 
 
@@ -46,7 +46,9 @@
   color: white;
   text-align: center;
   z-index: 2;
-  
+  display: flex;
+  flex-direction: column; /* Ensures vertical alignment */
+  align-items: center; /* Centers all elements horizontally */
 }
 
 .hero-title {
@@ -60,6 +62,14 @@
   margin-top: 1rem;
   font-weight: 300;
 }
+.sephbutton {
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  margin-top: 1.5rem; 
+}
+
+
 .abt{
 text-align: center;
 }
@@ -89,14 +99,54 @@ text-align: center;
 }
 .vision p{
   font-size: 1.2rem;
-  color: white;
+  color: rgb(135, 131, 131);
   max-width: 800px;
   margin: 0 auto;
   margin-bottom: 30px;
+  
 }
 
 .vision h2 {
-  color: white;
+  color: #0e6983; 
+  margin:1rem;
+}
+@media (max-width: 600px){
+  .abt h2 {
+    font-size: 2rem;
+    margin-top:3rem;
+    margin-bottom: 50px;
+    color: #0e6983; 
+  }
+  .mission {
+    font-size: 1.15rem;
+    color: #666;
+    max-width: 800px;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    padding: 10px 20px;
+  }
+  .vision {
+    background-color: white;
+    color: dark grey;
+    max-width: 400px;
+    margin: 0 auto;
+    padding:10px 20px;
+    margin-bottom:40px;
+    border-radius:15px;
+  }
+  .vision p{
+    font-size: 1.15rem;
+    color: rgb(135, 131, 131);
+    max-width: 800px;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    
+  }
+  
+  .vision h2 {
+    color: #0e6983; 
+    margin:1rem;
+  }
 }
 
 

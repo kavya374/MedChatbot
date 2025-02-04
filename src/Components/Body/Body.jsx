@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Upload } from "lucide-react";
+import { Upload,ArrowUpRight } from "lucide-react";
 import "./Body.css";
 import video from "../Assets/video.mp4";
 import client1 from "../Assets/client1.jpg";
@@ -39,6 +39,7 @@ export default function Body({ activeTab }) {
             and personalized nutrition guidance, helping reduce health
             disparities across the globe.
           </p>
+          <button className="sephbutton">Try Sephina<ArrowUpRight size={28} className="feature-icon" /></button>
         </div>
       </section>
 
