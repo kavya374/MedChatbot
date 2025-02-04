@@ -1,0 +1,90 @@
+/*Sephina */
+.sephi{
+  background: #f9f9f9;
+  
+}
+.meet-sephina {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 4rem 1rem;
+  overflow: hidden;
+}
+
+.meet-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4rem;
+  margin-bottom: 4rem;
+}
+
+.meet-content {
+  flex: 1;
+}
+
+.meet-title {
+  color: #5f7c84;
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+
+.meet-description {
+  color: #1f4650;
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.meet-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chat-icon {
+  color: #0e6983;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 50%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.chat-preview {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.chat-message {
+  color: #1f4650;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  font-style: italic;
+}
+
+.meet-features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 4rem;
+}
+.meet-feature {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.meet-feature h3 {
+  color: #0e6983;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.meet-feature p {
+  color: #1f4650;
+  line-height: 1.5;
+}
