@@ -10,13 +10,10 @@ const Auth = () => {
   });
 
   const [error, setError] = useState("");
-
-  // Handle input changes
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     setError("");
@@ -30,8 +27,6 @@ const Auth = () => {
       setError("Passwords do not match!");
       return;
     }
-
-    // Simulate API call
     if (isLogin) {
       console.log("Logging in with", formData);
       alert("Login Successful!");
@@ -40,7 +35,6 @@ const Auth = () => {
       alert("Signup Successful!");
     }
 
-    // Reset fields
     setFormData({ email: "", password: "", confirmPassword: "" });
   };
 

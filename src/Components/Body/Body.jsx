@@ -21,7 +21,7 @@ export default function Body({ activeTab }) {
       <section className="hero">
         <div className="video-container">
           {isVideoLoaded && (
-            <video
+            <video loading="lazy"
               className="video-frame"
               autoPlay
               loop
