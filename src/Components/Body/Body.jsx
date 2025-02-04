@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Upload,ArrowUpRight } from "lucide-react";
+import { Upload, ArrowUpRight } from "lucide-react";
 import "./Body.css";
 import video from "../Assets/video.mp4";
 import client1 from "../Assets/client1.jpg";
 import client2 from "../Assets/client2.jpg";
 import client3 from "../Assets/client3.jpg";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Body({ activeTab }) {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const { user, isAuthenticated } = useAuth0();
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVideoLoaded(true), 1000);
@@ -33,18 +35,31 @@ export default function Body({ activeTab }) {
         </div>
 
         <div className="hero-content">
-          <h1 className="hero-title">AI-Powered Healthcare for Everyone</h1>
+          <h1 className="hero-title">
+          
+          {isAuthenticated ? (
+          user && user.name ? (
+            <i><h6>Welcome, {user.name}!</h6><br/></i>
+          ) : (
+            <h6>Welcome!</h6> 
+          )
+        ) : null}
+            AI-Powered Healthcare for Everyone
+          </h1>
           <p className="hero-description">
             Sephina uses advanced AI to provide accessible medical assistance
             and personalized nutrition guidance, helping reduce health
             disparities across the globe.
           </p>
-          <button className="sephbutton">Try Sephina<ArrowUpRight size={28} className="feature-icon" /></button>
+          <button className="sephbutton">
+            Try Sephina
+            <ArrowUpRight size={28} className="feature-icon" />
+          </button>
         </div>
       </section>
 
       <section class="abt">
-      <h2>About Us</h2>
+        <h2>About Us</h2>
         <p class="mission">
           We are a mission-driven organization dedicated to leveraging
           Artificial Intelligence (AI) to bridge global health disparities. Our
@@ -52,7 +67,7 @@ export default function Body({ activeTab }) {
           underprivileged regions, empowering communities to lead healthier
           lives.
         </p>
-        
+
         <div className="vision">
           <h2>Our Vision</h2>
           <p>
@@ -62,9 +77,9 @@ export default function Body({ activeTab }) {
             has access to quality healthcare and nutrition.
           </p>
           <p>
-            Join us in building a healthier, more equitable future—one community at a time.
-        </p>
-         
+            Join us in building a healthier, more equitable future—one community
+            at a time.
+          </p>
         </div>
       </section>
 

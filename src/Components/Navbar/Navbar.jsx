@@ -5,7 +5,7 @@ import { ShieldPlus } from "lucide-react";
 import { useAuth0 } from '@auth0/auth0-react';
 
 function Navbar() {
-  const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
+  const {loginWithRedirect, logout, isAuthenticated } = useAuth0();
 
   return (
     <div className="navbar">
@@ -15,11 +15,12 @@ function Navbar() {
       <div className="side">
         <Link to="/features">Features</Link>
         <Link to="/sephina">Sephina</Link>
-        <Link to="/hospitals-nearby">Hospitals Nearby</Link>
+        <Link to="/hospitalsnearby">Hospitals Nearby</Link>
         {
           isAuthenticated ? (
             <button onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>Logout</button>
           ) : (
+            
             <button onClick={loginWithRedirect}>Log in</button>
           )
         }
